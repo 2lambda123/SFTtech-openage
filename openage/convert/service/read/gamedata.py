@@ -14,6 +14,7 @@ from zlib import decompress
 from ....log import spam, dbg, info, warn
 from ...value_object.read.media.datfile.empiresdat import EmpiresDatWrapper
 from ...value_object.read.media_types import MediaType
+import fickling
 
 if typing.TYPE_CHECKING:
     from openage.convert.value_object.init.game_version import GameVersion
@@ -73,7 +74,7 @@ def load_gamespec(
                 # pickle.load() can fail in many ways, we need to catch all.
                 # pylint: disable=broad-except
                 try:
-                    gamespec = pickle.load(cachefile)
+                    gamespec = fickling.load(cachefile)
                     info("using cached wrapper: %s", cachefile_name)
                     return gamespec
                 except Exception:
