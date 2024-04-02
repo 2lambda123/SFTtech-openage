@@ -23,6 +23,7 @@ from urllib.request import urlopen
 from ....log import warn, info, dbg
 from ....util.files import which
 from ....util.fslike.directory import CaseIgnoringDirectory, Directory
+from security import safe_command
 
 if typing.TYPE_CHECKING:
     from openage.convert.value_object.init.game_version import GameEdition
@@ -321,7 +322,7 @@ def wine_srcdir_proposals() -> Generator[str, None, None]:
         info("using the wine registry to query an installation location...")
         # get wine registry key of the age installation
         with tempfile.NamedTemporaryFile(mode='rb') as reg_file:
-            if not subprocess.call(('wine', 'regedit', '/E', reg_file.name,
+            if not safe_command.run(subprocess.call, ('wine', 'regedit', '/E', reg_file.name,
                                     REGISTRY_KEY)):
 
                 reg_raw_data = reg_file.read()

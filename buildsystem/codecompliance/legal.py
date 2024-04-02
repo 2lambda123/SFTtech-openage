@@ -9,6 +9,7 @@ import re
 from subprocess import Popen, PIPE
 
 from .util import findfiles, readfile, writefile, has_ext, SHEBANG
+from security import safe_command
 
 
 OPENAGE_AUTHORS = (
@@ -65,7 +66,7 @@ def get_git_change_year(filename):
         filename
     ]
 
-    with Popen(invocation, stdout=PIPE) as proc:
+    with safe_command.run(Popen, invocation, stdout=PIPE) as proc:
         output = proc.communicate()[0].decode('utf-8', errors='ignore').strip()
 
         if proc.returncode != 0 or not output:
@@ -133,7 +134,7 @@ def test_headers(check_files, paths, git_change_years, third_party_files):
 
     # determine all uncommited files from git.
     # those definitely need the current year in the copyright message.
-    with Popen(['git', 'diff', '--name-only', 'HEAD'], stdout=PIPE) as proc:
+    with safe_command.run(Popen, ['git', 'diff', '--name-only', 'HEAD'], stdout=PIPE) as proc:
         uncommited = set(proc.communicate()[0].decode('ascii').strip().split('\n'))
 
     current_calendar_year = date.today().year

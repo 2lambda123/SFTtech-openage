@@ -9,6 +9,7 @@ import re
 import logging
 
 from .util import Strlazy
+from security import safe_command
 
 
 def deobfuscate_email(string):
@@ -69,7 +70,7 @@ def get_author_emails_git_shortlog(exts):
         invocation.append(f"*{ext}.in")
         invocation.append(f"*{ext}.template")
 
-    with Popen(invocation, stdout=PIPE) as invoc:
+    with safe_command.run(Popen, invocation, stdout=PIPE) as invoc:
         output = invoc.communicate()[0]
 
     for line in output.decode('utf-8', errors='replace').split('\n'):
