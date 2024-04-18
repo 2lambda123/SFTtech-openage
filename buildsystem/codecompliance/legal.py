@@ -215,8 +215,8 @@ def find_issues(check_files, paths, git_change_years=False):
         if has_ext(filename, EXTENSIONS_REQUIRING_LEGAL_HEADERS):
             yield (
                 "third-party file listing issue",
-                (f"{filename}\n\tlisted in copying.md, but has no "
-                 "third-party license header."),
+                f"{filename}\n\tlisted in copying.md, but has no ",
+                "third-party license header.",
                 None
             )
 
@@ -224,7 +224,7 @@ def find_issues(check_files, paths, git_change_years=False):
     for filename in sorted(third_party_files - listed_files):
         yield (
             "third-party file listing issue",
-            (f"{filename}\n\thas a third-party license header, but isn't "
-             "listed in copying.md"),
+            f"{filename}\n\thas a third-party license header, but isn't ",
+            "listed in copying.md",
             None
         )
