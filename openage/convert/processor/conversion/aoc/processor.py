@@ -677,10 +677,6 @@ class AoCProcessor:
                         line_id = upgrade_source
                         break
 
-                else:
-                    # If no upgrade was found, then search remaining techs
-                    continue
-
                 # Find the previous building
                 for c_index, _ in enumerate(connected_types):
                     connected_type = connected_types[c_index]["other_connection"].value

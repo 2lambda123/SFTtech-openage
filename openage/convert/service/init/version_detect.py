@@ -70,22 +70,15 @@ def iterate_game_versions(
                 if best_edition is None:
                     best_edition = game_edition
 
-                # Continue to look for supported editions
-                continue
-
             if game_edition.support == Support.BREAKS:
                 dbg(f"Found broken game edition: {game_edition}")
 
                 if best_edition is None or best_edition.support == Support.NOPE:
                     best_edition = game_edition
 
-                # Continue to look for supported editions
-                continue
-
             # We found a fully supported edition!
             # No need to check for better editions
             best_edition = game_edition
-            break
 
     else:
         # Either no version or an unsupported or broken was found
@@ -116,13 +109,9 @@ def iterate_game_versions(
         else:
             if game_expansion.support == Support.NOPE:
                 info(f"Found unsupported game expansion: {game_expansion}")
-                # Continue to look for supported expansions
-                continue
 
             if game_expansion.support == Support.BREAKS:
                 info(f"Found broken game expansion: {best_edition}")
-                # Continue to look for supported expansions
-                continue
 
             expansions.append(game_expansion)
 
