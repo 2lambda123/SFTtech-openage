@@ -29,6 +29,7 @@ from ....entity_object.conversion.converter_object import RawMemberPush
 from ....service.conversion import internal_name_lookups
 from ....value_object.conversion.forward_ref import ForwardRef
 from .effect_subprocessor import AoCEffectSubprocessor
+import math
 
 if typing.TYPE_CHECKING:
     from openage.convert.entity_object.conversion.aoc.genie_unit import GenieGameEntityGroup
@@ -7089,7 +7090,7 @@ class AoCAbilitySubprocessor:
         if turn_speed_unmodified > 0:
             turn_yaw = current_unit["max_yaw_per_sec_moving"].value
 
-            if not turn_yaw == FLOAT32_MAX:
+            if not math.isclose(turn_yaw, FLOAT32_MAX, rel_tol=1e-09, abs_tol=0.0):
                 turn_speed = degrees(turn_yaw)
 
         ability_raw_api_object.add_raw_member("turn_speed",
