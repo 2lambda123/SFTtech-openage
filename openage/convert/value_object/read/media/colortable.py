@@ -28,7 +28,7 @@ class ColorTable(GenieStructure):
     def __init__(self, data: typing.Union[list, tuple, bytes]):
         super().__init__()
 
-        if isinstance(data, list) or isinstance(data, tuple):
+        if isinstance(data, (list, tuple)):
             self.fill_from_array(data)
         else:
             self.fill(data)
