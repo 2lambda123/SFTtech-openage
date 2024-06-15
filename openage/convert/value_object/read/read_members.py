@@ -99,7 +99,7 @@ class DynLengthMember(ReadMember):
 
         type_ok = False
 
-        if isinstance(length, int) or isinstance(length, str) or (length is self.any_length):
+        if isinstance(length, (int, str)) or (length is self.any_length):
             type_ok = True
 
         if callable(length):
